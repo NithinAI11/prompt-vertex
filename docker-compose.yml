@@ -1,0 +1,36 @@
+# /PromptForge/docker-compose.yml
+
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_promptforge
+    ports:
+      - "27027:27017" # Mapping to the unique port specified in config.py
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant_promptforge
+    ports:
+      - "6343:6333" # Mapping gRPC port to the unique port in config.py
+      - "6344:6334" # Mapping REST port (good practice)
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: promptforge_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mongo_data:
+  qdrant_data:
+  redis_data:

@@ -1,0 +1,20 @@
+# /PromptForge/requirements.txt
+
+python-dotenv
+langchain
+google-genai
+langchain-google-genai
+langgraph
+qdrant-client
+pymongo
+langchain-community
+langchain-huggingface 
+
+fastapi
+uvicorn
+
+beautifulsoup4
+requests
+schedule
+redis
+

@@ -1,0 +1,20 @@
+[
+    {
+        "id": "TEST_001_CLASSIFICATION",
+        "description": "A simple, direct classification task that should result in a highly structured prompt.",
+        "input_prompt": "Classify this movie review as positive, neutral, or negative.",
+        "golden_output": "## Persona\nYou are an expert sentiment analysis AI.\n\n## Primary Objective\nAnalyze the provided movie review and classify its sentiment as exclusively 'Positive', 'Neutral', or 'Negative'.\n\n## Key Directives\n- Base your classification on the overall tone, specific keywords, and contextual cues in the review.\n- Provide the final classification as a single, unadorned word.\n- Do not provide any explanation or justification unless explicitly asked.\n\n## Constraints\n- The output must be one of the three specified categories.\n- Do not use synonyms or alternative phrasing for the categories."
+    },
+    {
+        "id": "TEST_002_CREATIVE_WRITING",
+        "description": "A creative task that should result in a more open-ended but well-defined prompt.",
+        "input_prompt": "Write a short story about a lighthouse keeper who discovers a message in a bottle.",
+        "golden_output": "## 1. The Goal\nWrite a short, thrilling opening scene for a mystery story (approx. 300 words).\n\n## 2. The Persona\nYou are a master storyteller with a flair for suspense and atmosphere.\n\n## 3. Core Elements to Include\n- **Setting:** A remote, storm-battered lighthouse on a rocky island in the late 19th century.\n- **Character:** An old, lonely lighthouse keeper named Silas who is diligent but haunted by a past mistake.\n- **Inciting Incident:** During the storm, Silas discovers a corked bottle washed ashore, containing a cryptic, water-damaged note.\n\n## 4. Tone & Style\nMysterious, atmospheric, and cinematic. Use evocative language to describe the storm and Silas's isolation."
+    },
+    {
+        "id": "TEST_003_TECHNICAL_CODEGEN",
+        "description": "A technical code generation task that demands precision and specific constraints.",
+        "input_prompt": "Write a python function to check if a string is a palindrome.",
+        "golden_output": "## Role\nYou are a senior Python developer specializing in writing clean, efficient, and well-documented code.\n\n## Task\nWrite a single Python function named `is_palindrome` that takes a string as input and returns `True` if the string is a palindrome and `False` otherwise.\n\n## Requirements\n- The function must handle case-insensitivity (e.g., 'Racecar' should be considered a palindrome).\n- The function must ignore non-alphanumeric characters (e.g., spaces, punctuation).\n- Include a docstring that clearly explains what the function does, its parameters, and what it returns.\n- Add at least two usage examples as comments after the function definition.\n\n## Output Format\nProvide only the complete, executable Python code in a single code block."
+    }
+]
