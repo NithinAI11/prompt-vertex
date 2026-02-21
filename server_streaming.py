@@ -6,6 +6,7 @@ import schedule
 import uuid
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from sse_starlette.sse import EventSourceResponse
 from typing import Dict
 import config
@@ -15,17 +16,8 @@ from core.discovery_pipeline import run_discovery_pipeline
 from core.cache import redis_client
 from core.llm_services import invoke_gemini_json
 from core.schemas import DetailedEvaluationRequest, DetailedEvaluationResponse
-from settings_manager import get_settings, save_settings # CORRECT IMPORT
+from settings_manager import get_settings, save_settings
 
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-langgraph_app = create_graph()
 DYNAMIC_TEMPLATES_CACHE_KEY = "dynamic_templates_cache"
 
 def run_scheduler():
@@ -34,18 +26,41 @@ def run_scheduler():
         schedule.run_pending()
         time.sleep(60)
 
-@app.on_event("startup")
-async def startup_event():
+# --- NEW: FastAPI Lifespan Manager (Replaces on_event("startup")) ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     print("="*50)
     print("Application starting up...")
+    
+    # Schedule repeating background jobs
     schedule.every(24).hours.do(run_discovery_pipeline)
     print("[Scheduler] Daily discovery pipeline scheduled.")
+    
     if not (redis_client and redis_client.exists(DYNAMIC_TEMPLATES_CACHE_KEY)):
         print("[Scheduler] Kicking off initial pipeline run.")
         threading.Thread(target=run_discovery_pipeline, daemon=True).start()
+    
     threading.Thread(target=run_scheduler, daemon=True).start()
     print("Application startup complete.")
     print("="*50)
+    
+    yield # Yield control back to FastAPI while the app is running
+    
+    print("="*50)
+    print("Application shutting down...")
+    print("="*50)
+
+app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+langgraph_app = create_graph()
 
 @app.post("/detailed-evaluation", response_model=DetailedEvaluationResponse)
 async def detailed_evaluation(request: DetailedEvaluationRequest):
@@ -93,12 +108,7 @@ async def forge_stream(
             }
             async for output in langgraph_app.astream(inputs, config=config_payload):
                 for key, value in output.items():
-                    # --- CHANGE THIS ---
-                    # Instead of just yielding a generic message, yield the actual data payload.
-                    # The 'value' object contains the full state after the node runs.
-                    # We send the entire value so the frontend has all the context it needs.
                     yield json.dumps({"node": key, "data": value})
-                    # -------------------
                     await asyncio.sleep(0.1)
                     
         except Exception as e:

@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from settings_manager import get_settings  # CORRECT IMPORT
+from settings_manager import get_settings
 
 load_dotenv()
 
@@ -19,7 +19,7 @@ GEMINI_MODELS = {
     "guardian": "gemini-2.5-flash"
 }
 
-# 🔒 Perplexity role → real supported models mapping (FIXED)
+# 🔒 Perplexity role → real supported models mapping
 PERPLEXITY_MODELS = {
     "triage": "sonar",
     "logic_critic": "sonar-reasoning-pro",
@@ -29,21 +29,21 @@ PERPLEXITY_MODELS = {
 }
 
 OPENAI_MODELS = {
-    "logic_critic": "gpt-4.1",
+    "logic_critic": "gpt-4o",  # FIXED from gpt-4.1
     "creative_critic": "gpt-4o",
     "code_critic": "o3-mini"
 }
 
 ANTHROPIC_MODELS = {
-    "logic_critic": "claude-sonnet-4.5",
-    "creative_critic": "claude-3.5-sonnet",
-    "code_critic": "claude-sonnet-4.5"
+    "logic_critic": "claude-3-5-sonnet-latest", # FIXED to proper API string
+    "creative_critic": "claude-3-5-sonnet-latest",
+    "code_critic": "claude-3-5-sonnet-latest"
 }
 
 GROK_MODELS = {
-    "logic_critic": "grok-4-fast-reasoning",
-    "creative_critic": "grok-4",
-    "code_critic": "grok-4-fast-reasoning"
+    "logic_critic": "grok-2", # Adjusted based on active xAI endpoints
+    "creative_critic": "grok-2",
+    "code_critic": "grok-2"
 }
 
 ENABLE_PERPLEXITY_COUNCIL = True

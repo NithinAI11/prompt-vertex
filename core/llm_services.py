@@ -3,11 +3,22 @@ import re
 import time
 from typing import Optional, List, Dict
 import os
+import logging
+import warnings
 
 import requests
 from google import genai
 from google.genai import types
 from pydantic import BaseModel
+
+# Suppress HuggingFace and Sentence-Transformers verbose warnings
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+warnings.filterwarnings("ignore", category=UserWarning, module="huggingface_hub")
+logging.getLogger("transformers").setLevel(logging.ERROR)
+logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
+
 from langchain_huggingface import HuggingFaceEmbeddings
 
 import config
@@ -166,7 +177,7 @@ def invoke_gemini_string(
 # =========================================================
 
 def invoke_perplexity_model(
-    role_or_model: str,
+    model_name: str, # FIXED: Changed from role_or_model to model_name to match agents
     messages: List[dict],
     temperature: float = 0.2,
     max_tokens: int = 1024,
@@ -184,12 +195,12 @@ def invoke_perplexity_model(
     if not api_key:
         raise RuntimeError("❌ Perplexity API key missing. Set PERPLEXITY_API_KEY in .env or settings.")
 
-    # 🔁 Resolve role → model
-    model_name = config.PERPLEXITY_MODELS.get(role_or_model, role_or_model)
+    # 🔁 Resolve role → model (this safely handles if passed either role string or direct model string)
+    resolved_model = config.PERPLEXITY_MODELS.get(model_name, model_name)
 
-    fallback_models = _fallback_chain(model_name, config.PERPLEXITY_MODELS)
+    fallback_models = _fallback_chain(resolved_model, config.PERPLEXITY_MODELS)
 
-    endpoint = "https://api.perplexity.ai/chat/completions"  # ✅ SINGLE SOURCE OF TRUTH
+    endpoint = "https://api.perplexity.ai/chat/completions"
 
     headers = {
         "Authorization": f"Bearer {api_key.strip()}",
@@ -329,7 +340,7 @@ def invoke_grok_model(model_name: str, messages: List[dict], temperature: float 
 
 
 # =========================================================
-# Embeddings (UNCHANGED)
+# Embeddings (Warnings suppressed)
 # =========================================================
 
 def get_embedding_model():
