@@ -15,6 +15,7 @@
 
 [Features](#-the-enterprise-difference) • [Architecture](#-deep-dive-the-agentic-flow-architecture) • [Installation](#-setup--installation-guide) • [Usage](#%EF%B8%8F-configuration-parameters) • [Roadmap](#-the-rag-concept--autonomous-roadmap)
 
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)
 </div>
 
 ---
@@ -567,3 +568,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [Report Bug](https://github.com/NithinAI11/prompt-vertex/issues) · [Request Feature](https://github.com/NithinAI11/prompt-vertex/issues) · [Documentation](https://github.com/NithinAI11/prompt-vertex/wiki)
 
 </div>
+
