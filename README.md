@@ -491,9 +491,13 @@ Once inside the UI, navigate to the **Settings** tab to fully unlock the engine:
 
 <div align="center">
 
-[![PromptVertex Demo](https://img.shields.io/badge/▶️_Watch_Full_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](assets/demo/Full-Demo(Prompt-Vertex).mp4)
+<!-- Badge Link -->
+[![PromptVertex Demo](https://img.shields.io/badge/▶️_Watch_Full_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/pA1xh0opEVM)
 
 **Click above to watch the complete PromptVertex workflow in action!**
+
+<!-- Visual Preview (Thumbnail) -->
+[![Watch the Video](https://img.youtube.com/vi/pA1xh0opEVM/maxresdefault.jpg)](https://youtu.be/pA1xh0opEVM)
 
 </div>
 
@@ -690,9 +694,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [Report Bug](https://github.com/NithinAI11/prompt-vertex/issues) · [Request Feature](https://github.com/NithinAI11/prompt-vertex/issues) · [Documentation](https://github.com/NithinAI11/prompt-vertex/wiki)
 
-<<<<<<< HEAD
 </div>
-=======
-</div>
-
->>>>>>> a207a61cdb2c14e52e099e673119fa1a7078f800
