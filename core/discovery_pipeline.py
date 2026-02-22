@@ -10,7 +10,7 @@ from core.llm_services import invoke_gemini_json, embedding_model
 from core.vector_store import qdrant_client, DISCOVERY_COLLECTION_NAME
 from core.cache import redis_client
 from core.database import db
-from settings_manager import get_settings # CORRECT IMPORT
+from settings_manager import get_settings
 from qdrant_client import models
 from duckduckgo_search import DDGS
 import config
@@ -68,6 +68,21 @@ BATCH OF SCRAPED TEXT:
 "{batch_text}"
 """
 
+def fetch_from_searxng(query: str) -> List[str]:
+    try:
+        print(f"SearXNG: Searching '{query}'...")
+        url = f"{config.SEARXNG_URL}/search"
+        params = {"q": query, "format": "json", "categories": "general,it"}
+        response = requests.get(url, params=params, timeout=REQUEST_TIMEOUT)
+        response.raise_for_status()
+        data = response.json()
+        results = [r["url"] for r in data.get("results", []) if "url" in r]
+        print(f"SearXNG: Found {len(results)} results.")
+        return results
+    except Exception as e:
+        print(f"❌ SearXNG search failed for '{query}': {e}")
+        return []
+
 def fetch_from_tavily(query: str) -> List[str]:
     settings = get_settings()
     tavily_api_key = settings.get("tavilyApiKey")
@@ -100,17 +115,24 @@ def fetch_from_ddg(query: str) -> List[str]:
         return []
 
 def scout_for_sources() -> List[str]:
-    print("\n--- Scout: Starting discovery via Tavily + DDG ---")
+    print("\n--- Scout: Starting discovery via SearXNG -> Tavily -> DDG ---")
     urls = set()
     for query in SEARCH_QUERIES:
-        tavily_results = fetch_from_tavily(query)
-        if not tavily_results:
-            ddg_results = fetch_from_ddg(query)
-            urls.update(ddg_results)
-        else:
-            urls.update(tavily_results)
+        # 1. Try SearXNG First
+        results = fetch_from_searxng(query)
+        
+        # 2. Fallback to Tavily if SearXNG fails/returns empty
+        if not results:
+            results = fetch_from_tavily(query)
+            
+        # 3. Fallback to DDG if both SearXNG and Tavily fail
+        if not results:
+            results = fetch_from_ddg(query)
+            
+        urls.update(results)
         print(f"Scout: Accumulated {len(urls)} unique URLs so far.")
         time.sleep(RATE_LIMIT_DELAY + random.uniform(0.5, 1.5))
+        
     print(f"--- Scout Complete: Found {len(urls)} unique URLs ---\n")
     return list(urls)
 
@@ -169,15 +191,20 @@ def librarian_process_and_store(prompt_data: dict):
     print(f"Librarian: Processing '{prompt_data['title']}'...")
     try:
         vector = embedding_model.embed_query(text)
-        similar = qdrant_client.search(
+        
+        # --- FIXED: Use query_points instead of deprecated search ---
+        similar_response = qdrant_client.query_points(
             collection_name=DISCOVERY_COLLECTION_NAME,
-            query_vector=vector,
+            query=vector,
             limit=1,
             score_threshold=0.90
         )
+        similar = similar_response.points
+        
         if similar:
             print(f"Librarian: Duplicate found (score {similar[0].score:.2f}). Skipping.")
             return
+            
         point_id = str(uuid.uuid4())
         payload = {
             "title": prompt_data["title"],
@@ -201,7 +228,7 @@ def librarian_process_and_store(prompt_data: dict):
 
 def run_discovery_pipeline():
     print("\n" + "="*55)
-    print("--- Prompt Discovery Pipeline (Tavily + DDG) ---")
+    print("--- Prompt Discovery Pipeline (SearXNG + Tavily + DDG) ---")
     print("="*55)
     db[RAW_CONTENT_COLLECTION].delete_many({})
     all_urls = scout_for_sources()
