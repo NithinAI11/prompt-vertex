@@ -690,4 +690,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [Report Bug](https://github.com/NithinAI11/prompt-vertex/issues) · [Request Feature](https://github.com/NithinAI11/prompt-vertex/issues) · [Documentation](https://github.com/NithinAI11/prompt-vertex/wiki)
 
+<<<<<<< HEAD
 </div>
+=======
+</div>
+
+>>>>>>> a207a61cdb2c14e52e099e673119fa1a7078f800
