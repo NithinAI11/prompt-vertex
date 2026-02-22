@@ -13,8 +13,9 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
 
-[Features](#-the-enterprise-difference) • [Architecture](#-deep-dive-the-agentic-flow-architecture) • [Installation](#-setup--installation-guide) • [Usage](#%EF%B8%8F-configuration-parameters) • [Roadmap](#-the-rag-concept--autonomous-roadmap)
+[Features](#-the-enterprise-difference) • [Architecture](#-deep-dive-the-agentic-flow-architecture) • [Installation](#-setup--installation-guide) • [Screenshots](#-screenshots--demo) • [Roadmap](#-roadmap)
 
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)
 </div>
 
 ---
@@ -484,24 +485,148 @@ Once inside the UI, navigate to the **Settings** tab to fully unlock the engine:
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshots & Demo
+
+### 🎥 Full Demo Video
+
+<div align="center">
+
+[![PromptVertex Demo](https://img.shields.io/badge/▶️_Watch_Full_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](assets/demo/Full-Demo(Prompt-Vertex).mp4)
+
+**Click above to watch the complete PromptVertex workflow in action!**
+
+</div>
+
+---
+
+### 🏠 Home & Configuration
 
 <details>
-<summary>🖼️ Click to view UI screenshots</summary>
+<summary><b>Click to expand Home Interface screenshots</b></summary>
 
 <br>
 
-### Main Forge Interface
-![Forge Interface](https://via.placeholder.com/800x450?text=PromptVertex+Forge+Interface)
+#### Main Home Page
+![Home Page](assets/screenshots/01-home-page-main.png)
+*The main landing page with glass-morphic design and quick access to all features*
 
-### Live Node Tracing
-![Node Tracing](https://via.placeholder.com/800x450?text=Real-Time+Agent+Workflow)
+#### Configuration Panel
+![Configuration](assets/screenshots/02-home-page-config.png)
+*Advanced configuration options for customizing your prompt generation parameters*
 
-### Analytics Dashboard
-![Analytics](https://via.placeholder.com/800x450?text=Performance+Intelligence+Dashboard)
+</details>
 
-### Settings Panel
-![Settings](https://via.placeholder.com/800x450?text=Configuration+Management)
+---
+
+### 🔄 Live Agent Workflow
+
+<details>
+<summary><b>Click to expand Workflow screenshots</b></summary>
+
+<br>
+
+Watch the multi-agent system in action with real-time node tracing:
+
+#### Node 1 - Research Agent
+![Workflow Node 1](assets/screenshots/03-workflow-node-1-research.png)
+*Research Agent performing live web search to ground the prompt in factual context*
+
+#### Node 2 - Decomposer
+![Workflow Node 2](assets/screenshots/04-workflow-node-2-decompose.png)
+*Decomposer agent parsing input into ICIO framework (Instruction, Context, Input, Output)*
+
+#### Node 3 - Retrieval Agent
+![Workflow Node 3](assets/screenshots/05-workflow-node-3-retrieval.png)
+*RAG-powered semantic search querying Qdrant for inspirational prompts*
+
+#### Node 4 - Creative Director
+![Workflow Node 4](assets/screenshots/06-workflow-node-4-strategies.png)
+*Creative Director generating multiple divergent strategies with Tree of Thoughts*
+
+#### Node 5 - Critic Agent
+![Workflow Node 5](assets/screenshots/07-workflow-node-5-critic.png)
+*Critic agent evaluating all strategies and selecting the optimal path forward*
+
+#### Node 6 - Output Architect
+![Workflow Node 6](assets/screenshots/08-workflow-node-6-architect.png)
+*Output Architect dynamically designing the perfect output template*
+
+#### Final Synthesis
+![Workflow Final](assets/screenshots/09-workflow-node-final-synthesis.png)
+*Guardian agent performing final synthesis into production-ready prompt*
+
+</details>
+
+---
+
+### ✨ Generated Prompts
+
+<details>
+<summary><b>Click to expand Generated Prompt examples</b></summary>
+
+<br>
+
+#### Generated Prompt Example 1
+![Generated Prompt 1](assets/screenshots/10-generated-prompt-example-1.png)
+*Example of a complex system prompt for sentiment analysis with structured output*
+
+#### Generated Prompt Example 2
+![Generated Prompt 2](assets/screenshots/11-generated-prompt-example-2.png)
+*Example of a structured JSON extraction prompt with validation rules*
+
+#### Generated Prompt Example 3
+![Generated Prompt 3](assets/screenshots/12-generated-prompt-example-3.png)
+*Example of a multi-step reasoning prompt with chain-of-thought methodology*
+
+</details>
+
+---
+
+### 📊 Analytics & Quality
+
+<details>
+<summary><b>Click to expand Analytics & Quality screenshots</b></summary>
+
+<br>
+
+#### Performance Intelligence Dashboard
+![Analytics Dashboard](assets/screenshots/13-analytics-dashboard.png)
+*Track prompt success rates, token usage, and capability heatmaps over time*
+
+#### Prompt Quality Report
+![Quality Report](assets/screenshots/14-prompt-quality-report.png)
+*Detailed comparative analysis showing specific engineering improvements between original and forged prompts*
+
+</details>
+
+---
+
+### 🔍 Discovery, History & Settings
+
+<details>
+<summary><b>Click to expand Discovery, History & Settings screenshots</b></summary>
+
+<br>
+
+#### Discovery Pipeline
+![Discovery Page](assets/screenshots/15-discovery-page.png)
+*Browse and explore high-quality prompts from the RAG knowledge base*
+
+#### History Page
+![History Page](assets/screenshots/16-history-page.png)
+*Track all your previous prompt generations with full version history*
+
+#### Settings - UI Controls
+![Settings UI](assets/screenshots/17-settings-ui-controls.png)
+*Customize tone, temperature, Top-P, Top-K and other advanced generation parameters*
+
+#### Settings - API Manager
+![Settings API](assets/screenshots/18-settings-api-manager.png)
+*Secure API key management for Gemini, Perplexity, OpenAI, Anthropic, and Grok*
+
+#### Settings - Data Export
+![Settings Export](assets/screenshots/19-settings-data-export.png)
+*Export your prompts, analytics, and session data for external use*
 
 </details>
 
@@ -553,8 +678,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Nithin AI**
 
 [![GitHub](https://img.shields.io/badge/GitHub-NithinAI11-181717?style=flat&logo=github)](https://github.com/NithinAI11)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](https://www.linkedin.com/in/nithin-r-712489263
-)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](https://www.linkedin.com/in/nithin-r-712489263)
 
 ---
 
